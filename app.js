@@ -40,9 +40,15 @@ app.get('/api/employeelist',(req,res)=>{
 
 //TODO: get single data from db  using api '/api/employeelist/:id'
 app.get('/api/employeelist/:id',(req,res)=>{
-    EmployeeData.findById({"_id":req.params.id}).then(function(data){
-    res.send(data);
-    })
+    try{
+        EmployeeData.findById({"_id":req.params.id}).then(function(data){
+            res.send(data);
+            })
+    }
+   
+    catch(error){
+        console.log(error);
+    } 
 })
 
 
@@ -71,9 +77,15 @@ app.post('/api/employeelist',async(req,res)=>{
 //TODO: delete a employee data from db by using api '/api/employeelist/:id'
 
 app.delete('/api/employeelist/:id',(req,res)=>{
-    EmployeeData.remove({"_id":req.params.id}).then(function(data){
-        res.send(data);
+    try{
+        EmployeeData.remove({"_id":req.params.id}).then(function(data){
+            res.send(data);
         })
+    }
+    
+        catch(error){
+            console.log(error);
+        }   
     
 })
 
@@ -84,11 +96,17 @@ app.delete('/api/employeelist/:id',(req,res)=>{
 
 app.put('/api/employeelist',async(req,res)=>{
 
-    console.log(req.body);
-      await EmployeeData.findByIdAndUpdate(req.body._id, {$set:req.body})
-       .then(function(data){
-            res.send(data);
-    })  
+    try{
+
+        console.log(req.body);
+        await EmployeeData.findByIdAndUpdate(req.body._id, {$set:req.body})
+         .then(function(data){
+              res.send(data);
+      })  
+    }
+    catch(error){
+        console.log(error);
+    } 
  
 }) 
 
